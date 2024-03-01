@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <title>SayYes</title>
+    </head>
+    <body>
+        <div class="conteiner">
+            <div>
+                <h1 class="header_text">Мы идем в кино?</h1>
+            </div>
+            <div class="gif_container">
+                <img src="https://i.postimg.cc/CKfWDG6j/first.gif">
+            </div>
+            <div class="buttons">
+                <button class="btn" id="yesButton" onclick="yes()">Да</button>
+                <button class="btn" id="noButton" onmouseover="moveButton()">Нет</button>
+                <script>
+                function yes() {
+                    window.location.href = "yes.html";
+                }
+
+                function moveButton() {
+                    var noButton = document.getElementById("noButton");
+                    var x = Math.random() * (window.innerWidth - noButton.offsetWidth);
+                    var y = Math.random() * (window.innerHeight - noButton.offsetHeight);
+                    noButton.style.position = 'absolute'; // Добавляем эту строку, чтобы кнопка могла свободно перемещаться
+                    noButton.style.left = x + 'px';
+                    noButton.style.top = y + 'px';
+                }
+                </script>
+            </div>
+        </div>
+    </body>
+</html>
+
