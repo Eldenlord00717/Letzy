@@ -15,7 +15,7 @@
             </div>
             <div class="buttons">
                 <button class="btn" id="yesButton" onclick="yes()">Да</button>
-                <button class="btn" id="noButton" onmouseover="moveButton()" onclick="increaseSize()">Нет</button>
+                <button class="btn" id="noButton" onmouseover="moveButton()" onclick="handleNoButton()">Нет</button>
                 <script>
                 function yes() {
                     window.location.href = "yes.html";
@@ -30,11 +30,24 @@
                     noButton.style.top = y + 'px';
                 }
 
-                function increaseSize() {
+                function handleNoButton() {
                     var noButton = document.getElementById("noButton");
                     var currentSize = parseFloat(window.getComputedStyle(noButton, null).getPropertyValue('font-size'));
                     noButton.style.fontSize = (currentSize + 5) + 'px'; // Увеличение размера шрифта
-                    noButton.style.backgroundColor = 'red'; // Изменение цвета фона
+
+                    // Список фраз для замены текста
+                    var phrases = [
+                        'Да хватит уже!',
+                        'Тебе не надоело?',
+                        'Я могу так хоть весь день!',
+                        'Серьезно, давай уже!',
+                        'Неужели ты не устанешь?',
+                        'Это не лучший выбор!'
+                    ];
+
+                    // Случайный выбор фразы
+                    var randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+                    noButton.textContent = randomPhrase; // Изменение текста кнопки
                 }
                 </script>
             </div>
