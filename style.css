@@ -1,65 +1,54 @@
+/* Основные стили для body */
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f4f6f4;
+    height: 100vh; /* Полная высота экрана */
+    margin: 0; /* Удаление отступов по умолчанию */
+    background-color: #f4f6f4; /* Цвет фона */
+    font-family: 'Nunito', sans-serif; /* Шрифт для всего документа */
 }
 
+/* Контейнер для содержимого */
 .container {
-    text-align: center;
+    text-align: center; /* Центрирование текста */
+    padding: 20px; /* Отступы внутри контейнера */
 }
 
-#noButton {
-    position: absolute;
-    margin-left: 150px;
-    transition: 0.5s;
-}
-
-#yesButton {
-    position: absolute;
-    margin-right: 150px;
-}
-
+/* Заголовок */
 .header_text {
-    font-family: 'Nunito';
-    font-size: 40px;
-    font-weight: bold;
-    color: #FFB6C1;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 0px;
+    font-size: 40px; /* Размер шрифта заголовка */
+    font-weight: bold; /* Жирный шрифт */
+    color: #FFB6C1; /* Цвет заголовка */
+    margin: 20px 0; /* Отступы сверху и снизу */
 }
 
-.buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    margin-left: 20px;
-}
-
+/* Стили для кнопок */
 .btn {
-    background-color: #FFB6C1;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border: none;
-    border-radius: 12px;
-    transition: background-color 0.3s ease;
+    background-color: #FFB6C1; /* Цвет фона кнопки */
+    color: white; /* Цвет текста */
+    padding: 15px 32px; /* Отступы внутри кнопки */
+    text-align: center; /* Центрирование текста внутри кнопки */
+    display: inline-block; /* Отображение кнопки как блочный элемент */
+    font-size: 16px; /* Размер шрифта кнопки */
+    margin: 10px; /* Отступы между кнопками */
+    cursor: pointer; /* Указатель при наведении */
+    border: none; /* Удаление рамки */
+    border-radius: 12px; /* Закругление углов */
+    transition: background-color 0.3s ease, transform 0.2s; /* Плавные переходы */
 }
 
+/* Эффект при наведении на кнопку */
+.btn:hover {
+    background-color: #ff7f7f; /* Изменение цвета фона при наведении */
+}
+
+/* Контейнер для гифок */
 .gif_container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+    justify-content: center; /* Центрирование содержимого */
+    align-items: center; /* Вертикальное центрирование */
+    margin-top: 20px; /* Отступ сверху */
 }
 
 /* Медиа-запросы для адаптивности */
@@ -68,14 +57,23 @@ body {
         font-size: 30px; /* Уменьшение размера шрифта для мобильных устройств */
     }
 
-    .gif_container img {
-        width: 100%; /* Изображение будет занимать 100% ширины контейнера */
-        height: auto; /* Сохране��ие пропорций изображения */
+    .btn {
+        padding: 10px 20px; /* Уменьшение отступов для кнопок на мобильных устройствах */
+        font-size: 14px; /* Уменьшение размера шрифта для кнопок */
+    }
+
+    .buttons {
+        flex-direction: column; /* Вертикальное расположение кнопок на мобильных устройствах */
     }
 }
 
 @media (max-width: 480px) {
     .header_text {
         font-size: 24px; /* Дополнительное уменьшение размера шрифта для очень маленьких экранов */
+    }
+
+    .btn {
+        padding: 8px 16px; /* Дополнительное уменьшение отступов для кнопок */
+        font-size: 12px; /* Уменьшение размера шрифта для кнопок */
     }
 }
