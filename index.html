@@ -23,31 +23,38 @@
 
                 function moveButton() {
                     var noButton = document.getElementById("noButton");
-                    var x = Math.random() * (window.innerWidth - noButton.offsetWidth);
-                    var y = Math.random() * (window.innerHeight - noButton.offsetHeight);
-                    noButton.style.position = 'absolute';
-                    noButton.style.left = x + 'px';
-                    noButton.style.top = y + 'px';
+                    if (window.innerWidth > 768) { // Проверка на веб-версию
+                        var x = Math.random() * (window.innerWidth - noButton.offsetWidth);
+                        var y = Math.random() * (window.innerHeight - noButton.offsetHeight);
+                        noButton.style.position = 'absolute';
+                        noButton.style.left = x + 'px';
+                        noButton.style.top = y + 'px';
+                    }
                 }
 
                 function handleNoButton() {
                     var noButton = document.getElementById("noButton");
-                    var currentSize = parseFloat(window.getComputedStyle(noButton, null).getPropertyValue('font-size'));
-                    noButton.style.fontSize = (currentSize + 5) + 'px'; // Увеличение размера шрифта
+                    if (window.innerWidth > 768) { // Веб-версия
+                        var currentSize = parseFloat(window.getComputedStyle(noButton, null).getPropertyValue('font-size'));
+                        noButton.style.fontSize = (currentSize + 5) + 'px'; // Увеличение размера шрифта
+                    } else { // Мобильная версия
+                        var currentSize = parseFloat(window.getComputedStyle(noButton, null).getPropertyValue('font-size'));
+                        noButton.style.fontSize = (currentSize + 5) + 'px'; // Увеличение размера шрифта
 
-                    // Список фраз для замены текста
-                    var phrases = [
-                        'Да хватит уже!',
-                        'Тебе не надоело?',
-                        'Я могу так хоть весь день!',
-                        'Серьезно, давай уже!',
-                        'Неужели ты не устанешь?',
-                        'Это не лучший выбор!'
-                    ];
+                        // Список фраз для замены текста
+                        var phrases = [
+                            'Да хватит уже!',
+                            'Тебе не надоело?',
+                            'Я могу так хоть весь день!',
+                            'Серьезно, давай уже!',
+                            'Неужели ты не устанешь?',
+                            'Это не лучший выбор!'
+                        ];
 
-                    // Случайный выбор фразы
-                    var randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-                    noButton.textContent = randomPhrase; // Изменение текста кнопки
+                        // Случайный выбор фразы
+                        var randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+                        noButton.textContent = randomPhrase; // Изменение текста кнопки
+                    }
                 }
                 </script>
             </div>
