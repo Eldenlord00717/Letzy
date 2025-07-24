@@ -13,10 +13,12 @@
             <div class="gif_container">
                 <img src="https://i.postimg.cc/CKfWDG6j/first.gif">
             </div>
+            <canvas id="matrixCanvas" class="matrix-rain" style="display:none;"></canvas>
             <div class="buttons">
                 <button class="btn" id="yesButton" onclick="yes()">Да</button>
                 <button class="btn" id="noButton" onmouseover="moveButton()" onclick="handleNoButton()">Нет</button>
                 <script>
+                let noPressCount = 0;
                 function yes() {
                     window.location.href = "yes.html";
                 }
@@ -41,6 +43,11 @@
 
                 function handleNoButton() {
                     var noButton = document.getElementById("noButton");
+                    noPressCount++;
+                    if (noPressCount >= 7) {
+                        showMatrixAndReload();
+                        return;
+                    }
                     if (window.innerWidth > 768) { // Веб-версия
                         var currentSize = parseFloat(window.getComputedStyle(noButton, null).getPropertyValue('font-size'));
                         noButton.style.fontSize = (currentSize + 5) + 'px'; // Увеличение размера шрифта
@@ -74,6 +81,43 @@
                         // Случайный угол
                         noButton.style.transform = `rotate(${Math.floor(Math.random()*40-20)}deg)`;
                     }
+                }
+
+                // Matrix rain эффект и перезагрузка
+                function showMatrixAndReload() {
+                    const canvas = document.getElementById('matrixCanvas');
+                    canvas.style.display = 'block';
+                    const ctx = canvas.getContext('2d');
+                    let width = window.innerWidth;
+                    let height = window.innerHeight;
+                    canvas.width = width;
+                    canvas.height = height;
+                    // Символы для эффекта
+                    const letters = 'АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ0123456789';
+                    const fontSize = 22;
+                    const columns = Math.floor(width / fontSize);
+                    const drops = Array(columns).fill(1);
+                    ctx.font = fontSize + 'px monospace';
+                    let animationFrame;
+                    function drawMatrix() {
+                        ctx.fillStyle = 'rgba(0,0,0,0.15)';
+                        ctx.fillRect(0, 0, width, height);
+                        ctx.fillStyle = '#0F0';
+                        for (let i = 0; i < drops.length; i++) {
+                            const text = letters[Math.floor(Math.random() * letters.length)];
+                            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                            if (drops[i] * fontSize > height && Math.random() > 0.975) {
+                                drops[i] = 0;
+                            }
+                            drops[i]++;
+                        }
+                        animationFrame = requestAnimationFrame(drawMatrix);
+                    }
+                    drawMatrix();
+                    setTimeout(() => {
+                        cancelAnimationFrame(animationFrame);
+                        location.reload();
+                    }, 1800);
                 }
                 </script>
             </div>
