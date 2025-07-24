@@ -28,10 +28,10 @@ body {
 .header_text {
     font-size: 40px; /* Размер шрифта заголовка */
     font-weight: bold; /* Жирный шрифт */
-    color: #FFB6C1; /* Цвет заголовка */
+    color: #2d0036; /* Цвет заголовка */
     margin: 20px 0; /* Отступы сверху и снизу */
     animation: popIn 1s cubic-bezier(.68,-0.55,.27,1.55) both;
-    text-shadow: 0 2px 10px #fff, 0 0px 40px #ffb6c1;
+    text-shadow: 0 2px 10px #fff, 0 0px 40px #ffb6c1, 0 0 2px #fff, 0 0 4px #fff;
 }
 
 @keyframes popIn {
