@@ -63,15 +63,12 @@
                         if (navigator.vibrate) navigator.vibrate(200);
                         // Список фраз для замены текста
                         var phrases = [
-                            'Да хватит уже!',
-                            'Тебе не надоело?',
-                            'Я могу так хоть весь день!',
-                            'Серьезно, давай уже!',
-                            'Неужели ты не устанешь?',
+                            'Не-а',
+                            'Вась, тебе не надоело?)',
+                            'Жми Дааааа!',
+                            'Неужели ты не устанешь?)',
                             'Это не лучший выбор!',
-                            'Ну пожалуйста, выбери Да!',
-                            'Ты уверен(а)?',
-                            'Может всё-таки Да?'
+                            'Может всё-таки Да?)'
                         ];
                         // Случайный выбор фразы
                         var randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
@@ -93,7 +90,7 @@
                     canvas.width = width;
                     canvas.height = height;
                     // Слова и символы для эффекта
-                    const matrixWords = ['Василиса', 'Красивая', '❤', '♡', '♥'];
+                    const matrixWords = ['Vasya', 'Красивая', '❤', '♥'];
                     // Используем слова и сердечки
                     const fontSize = 28;
                     const columns = Math.floor(width / fontSize);
@@ -107,7 +104,7 @@
                             // Выбираем случайное слово или сердечко
                             const text = matrixWords[Math.floor(Math.random() * matrixWords.length)];
                             // Цвет: зелёный для слов, розовый для сердечек
-                            if (text === '❤' || text === '♡' || text === '♥') {
+                            if (text === '❤' || text === '♥') {
                                 ctx.fillStyle = '#ff69b4';
                             } else {
                                 ctx.fillStyle = '#0F0';
