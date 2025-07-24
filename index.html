@@ -100,34 +100,40 @@
                     const drops = Array(columns).fill(1);
                     ctx.font = fontSize + 'px monospace';
                     let animationFrame;
-                    function drawMatrix() {
-                        ctx.fillStyle = 'rgba(0,0,0,0.15)';
-                        ctx.fillRect(0, 0, width, height);
-                        for (let i = 0; i < drops.length; i++) {
-                            // Выбираем случайное слово или сердечко
-                            const text = matrixWords[Math.floor(Math.random() * matrixWords.length)];
-                            // Цвет: зелёный для слов, розовый для сердечек
-                            if (text === '❤' || text === '♡' || text === '♥') {
-                                ctx.fillStyle = '#ff69b4';
-                            } else {
-                                ctx.fillStyle = '#0F0';
+                    const frameDelay = 55; // задержка между кадрами (медленнее)
+                    let lastFrame = 0;
+                    function drawMatrix(now) {
+                        if (!lastFrame || now - lastFrame > frameDelay) {
+                            ctx.fillStyle = 'rgba(0,0,0,0.10)'; // чуть менее плотное затенение
+                            ctx.fillRect(0, 0, width, height);
+                            for (let i = 0; i < drops.length; i++) {
+                                // Выбираем случайное слово или сердечко
+                                const text = matrixWords[Math.floor(Math.random() * matrixWords.length)];
+                                // Цвет: зелёный для слов, розовый для сердечек
+                                if (text === '❤' || text === '♡' || text === '♥') {
+                                    ctx.fillStyle = '#ff69b4';
+                                } else {
+                                    ctx.fillStyle = '#0F0';
+                                }
+                                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                                if (drops[i] * fontSize > height && Math.random() > 0.975) {
+                                    drops[i] = 0;
+                                }
+                                drops[i]++;
                             }
-                            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                            if (drops[i] * fontSize > height && Math.random() > 0.975) {
-                                drops[i] = 0;
-                            }
-                            drops[i]++;
+                            lastFrame = now;
                         }
                         animationFrame = requestAnimationFrame(drawMatrix);
                     }
-                    drawMatrix();
+                    animationFrame = requestAnimationFrame(drawMatrix);
                     setTimeout(() => {
                         cancelAnimationFrame(animationFrame);
                         location.reload();
-                    }, 1800);
+                    }, 2500);
                 }
                 </script>
             </div>
         </div>
     </body>
 </html>
+
