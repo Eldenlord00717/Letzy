@@ -29,6 +29,13 @@
                         noButton.style.position = 'absolute';
                         noButton.style.left = x + 'px';
                         noButton.style.top = y + 'px';
+                        // Добавляем тряску
+                        noButton.classList.add('shake');
+                        setTimeout(() => noButton.classList.remove('shake'), 400);
+                        // Случайный цвет
+                        noButton.style.background = `hsl(${Math.floor(Math.random()*360)}, 80%, 80%)`;
+                        // Случайный угол
+                        noButton.style.transform = `rotate(${Math.floor(Math.random()*40-20)}deg)`;
                     }
                 }
 
@@ -37,10 +44,16 @@
                     if (window.innerWidth > 768) { // Веб-версия
                         var currentSize = parseFloat(window.getComputedStyle(noButton, null).getPropertyValue('font-size'));
                         noButton.style.fontSize = (currentSize + 5) + 'px'; // Увеличение размера шрифта
+                        // Тряска и смена цвета
+                        noButton.classList.add('shake');
+                        setTimeout(() => noButton.classList.remove('shake'), 400);
+                        noButton.style.background = `hsl(${Math.floor(Math.random()*360)}, 80%, 80%)`;
+                        noButton.style.transform = `rotate(${Math.floor(Math.random()*40-20)}deg)`;
                     } else { // Мобильная версия
                         var currentSize = parseFloat(window.getComputedStyle(noButton, null).getPropertyValue('font-size'));
                         noButton.style.fontSize = (currentSize + 5) + 'px'; // Увеличение размера шрифта
-
+                        // Вибрация
+                        if (navigator.vibrate) navigator.vibrate(200);
                         // Список фраз для замены текста
                         var phrases = [
                             'Да хватит уже!',
@@ -48,12 +61,18 @@
                             'Я могу так хоть весь день!',
                             'Серьезно, давай уже!',
                             'Неужели ты не устанешь?',
-                            'Это не лучший выбор!'
+                            'Это не лучший выбор!',
+                            'Ну пожалуйста, выбери Да!',
+                            'Ты уверен(а)?',
+                            'Может всё-таки Да?'
                         ];
-
                         // Случайный выбор фразы
                         var randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
                         noButton.textContent = randomPhrase; // Изменение текста кнопки
+                        // Случайный цвет
+                        noButton.style.background = `hsl(${Math.floor(Math.random()*360)}, 80%, 80%)`;
+                        // Случайный угол
+                        noButton.style.transform = `rotate(${Math.floor(Math.random()*40-20)}deg)`;
                     }
                 }
                 </script>
@@ -61,4 +80,3 @@
         </div>
     </body>
 </html>
-
