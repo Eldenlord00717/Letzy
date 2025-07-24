@@ -141,6 +141,11 @@ body {
         max-width: 90vw;
         max-height: 60px;
         white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-word;
+        line-height: 1.1;
+        font-size: clamp(14px, 4vw, 28px);
     }
 
     .buttons {
@@ -148,8 +153,8 @@ body {
     }
 
     .gif_container img {
-        max-width: 80vw;
-        max-height: 180px;
+        max-width: 96vw;
+        max-height: 320px;
         padding: 4px;
     }
 }
@@ -164,11 +169,29 @@ body {
         font-size: 16px; /* Увеличение размера шрифта для кнопок */
         max-width: 96vw;
         max-height: 48px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-word;
+        line-height: 1.1;
+        font-size: clamp(12px, 5vw, 22px);
     }
 
     .gif_container img {
-        max-width: 92vw;
-        max-height: 120px;
+        max-width: 99vw;
+        max-height: 200px;
         padding: 2px;
     }
+}
+
+/* Matrix rain эффект для перезагрузки */
+.matrix-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    background: rgba(0,0,0,0.95);
+    overflow: hidden;
 }
