@@ -138,10 +138,19 @@ body {
     .btn {
         padding: 15px 30px; /* Увеличение отступов для кнопок на мобильных устройствах */
         font-size: 18px; /* Увеличение размера шрифта для кнопок */
+        max-width: 90vw;
+        max-height: 60px;
+        white-space: normal;
     }
 
     .buttons {
         flex-direction: column; /* Вертикальное расположение кнопок на мобильных устройствах */
+    }
+
+    .gif_container img {
+        max-width: 80vw;
+        max-height: 180px;
+        padding: 4px;
     }
 }
 
@@ -153,5 +162,13 @@ body {
     .btn {
         padding: 12px 24px; /* Дополнительное увеличение отступов для кнопок */
         font-size: 16px; /* Увеличение размера шрифта для кнопок */
+        max-width: 96vw;
+        max-height: 48px;
+    }
+
+    .gif_container img {
+        max-width: 92vw;
+        max-height: 120px;
+        padding: 2px;
     }
 }
