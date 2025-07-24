@@ -7,6 +7,15 @@ body {
     margin: 0; /* Удаление отступов по умолчанию */
     background-color: #f4f6f4; /* Цвет фона */
     font-family: 'Nunito', sans-serif; /* Шрифт для всего документа */
+    background: linear-gradient(-45deg, #ffb6c1, #ffe4e1, #b2f7ef, #f4f6f4);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
 }
 
 /* Контейнер для содержимого */
@@ -21,6 +30,14 @@ body {
     font-weight: bold; /* Жирный шрифт */
     color: #FFB6C1; /* Цвет заголовка */
     margin: 20px 0; /* Отступы сверху и снизу */
+    animation: popIn 1s cubic-bezier(.68,-0.55,.27,1.55) both;
+    text-shadow: 0 2px 10px #fff, 0 0px 40px #ffb6c1;
+}
+
+@keyframes popIn {
+    0% {transform: scale(0.7) rotate(-10deg); opacity: 0;}
+    80% {transform: scale(1.1) rotate(2deg); opacity: 1;}
+    100% {transform: scale(1) rotate(0deg);}
 }
 
 /* Стили для кнопок */
@@ -35,6 +52,16 @@ body {
     cursor: pointer; /* Указатель при наведении */
     border: none; /* Удаление рамки */
     border-radius: 12px; /* Закругление углов */
+    transition: background 0.3s, transform 0.2s, font-size 0.2s, color 0.2s;
+    box-shadow: 0 2px 16px 0 rgba(255,182,193,0.15);
+    position: relative;
+    z-index: 2;
+}
+
+.btn:active {
+    transform: scale(1.08) rotate(-2deg);
+    background: #ff7f7f;
+    color: #fff;
 }
 
 /* Эффект при наведении на кнопку */
@@ -42,12 +69,64 @@ body {
     background-color: #ff7f7f; /* Изменение цвета фона при наведении */
 }
 
+/* Эффект "тряски" для убегающей кнопки */
+.btn.shake {
+    animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+@keyframes shake {
+    10%, 90% { transform: translateX(-2px); }
+    20%, 80% { transform: translateX(4px); }
+    30%, 50%, 70% { transform: translateX(-8px); }
+    40%, 60% { transform: translateX(8px); }
+}
+
 /* Контейнер для гифок */
 .gif_container {
     display: flex;
-    justify-content: center; /* Центрирование содержимого */
-    align-items: center; /* Вертикальное центрирование */
-    margin-top: 20px; /* Отступ сверху */
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    position: relative;
+}
+
+.gif_glow {
+    position: relative;
+    display: inline-block;
+    border-radius: 40px;
+    overflow: visible;
+}
+
+.gif_glow::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    border-radius: 40px;
+    background: radial-gradient(circle, rgba(255,255,255,1) 60%, rgba(255,255,255,0.7) 80%, rgba(255,255,255,0) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.gif_container img {
+    border-radius: 32px;
+    box-shadow: 0 0 32px 8px rgba(255,182,193,0.25), 0 4px 32px 0 rgba(0,0,0,0.10);
+    background: rgba(255,255,255,0.7); /* Лёгкая подложка для смягчения белого */
+    padding: 8px;
+    transition: box-shadow 0.4s, background 0.4s;
+}
+
+/* Счётчик попыток */
+#attemptCounter {
+    margin-top: 18px;
+    font-size: 18px;
+    color: #ff7f7f;
+    font-weight: bold;
+    text-shadow: 0 1px 6px #fff;
+    letter-spacing: 1px;
+    transition: color 0.3s;
 }
 
 /* Медиа-запросы для адаптивности */
