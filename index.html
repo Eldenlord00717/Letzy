@@ -7,17 +7,45 @@
     </head>
     <body>
         <div class="container">
-            <div>
-                <h1 class="header_text">Мы идем в кино?</h1>
+            <div id="questionStage" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:60vh;">
+                <h1 class="header_text" id="questionHeader" style="text-align:center;">Тебя зовут Василиса?</h1>
+                <button class="btn" id="nextQuestionBtn" style="margin-top:32px;">Да</button>
             </div>
-            <div class="gif_container">
-                <img src="https://i.postimg.cc/CKfWDG6j/first.gif">
+            <div id="flowersStage" style="display:none; flex-direction:column; align-items:center; justify-content:center; min-height:60vh;">
+                <div class="gif_container" style="margin-bottom: 16px;">
+                    <img src="https://i.postimg.cc/CKfWDG6j/first.gif" style="max-width:180px; width:60vw; border-radius:24px;">
+                </div>
+                <h1 class="header_text" style="text-align:center;">Какие твои любимые цветы?</h1>
+                <input id="flowersInput" type="text" placeholder="Напиши свой ответ..." style="margin:16px 0; padding:10px; font-size:18px; border-radius:8px; border:1px solid #ccc; width:80vw; max-width:320px;">
+                <button class="btn" id="sendFlowersBtn">Отправить</button>
+                <div id="flowersMsg" style="margin-top:10px; color:#2d0036; font-size:16px;"></div>
             </div>
-            <canvas id="matrixCanvas" class="matrix-rain" style="display:none;"></canvas>
-            <div class="buttons">
-                <button class="btn" id="yesButton" onclick="yes()">Да</button>
-                <button class="btn" id="noButton" onmouseover="moveButton()" onclick="handleNoButton()">Нет</button>
-                <script>
+            <div id="addressStage" style="display:none; flex-direction:column; align-items:center; justify-content:center; min-height:60vh;">
+                <div class="gif_container" style="margin-bottom: 16px;">
+                    <img src="https://i.postimg.cc/CKfWDG6j/first.gif" style="max-width:140px; width:40vw; border-radius:24px;">
+                </div>
+                <h1 class="header_text" style="text-align:center;">Куда же доставить этот прекрасный букет?<br><span style='font-size:18px;opacity:0.7;'>(можно шепнуть адресочек)</span></h1>
+                <input id="addressInput" type="text" placeholder="Улица, дом, подъезд..." style="margin:16px 0; padding:10px; font-size:18px; border-radius:8px; border:1px solid #ccc; width:80vw; max-width:320px;">
+                <button class="btn" id="sendAddressBtn">Отправить</button>
+                <div id="addressMsg" style="margin-top:10px; color:#2d0036; font-size:16px;"></div>
+            </div>
+            <div id="successStage" style="display:none; flex-direction:column; align-items:center; justify-content:center; min-height:60vh;">
+                <div style="margin-bottom: 16px;">
+                    <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" alt="сердечко" style="max-width:600px; width:90vw; border-radius:24px;">
+                </div>
+                <h1 class="header_text" style="text-align:center; color:#e91e63;">еееееееееееееее!</h1>
+                <div style="font-size:22px; color:#2d0036; margin-top:12px;">#урауспех</div>
+            </div>
+            <div id="mainStage" style="display:none;">
+                <div class="gif_container">
+                    <img src="https://i.postimg.cc/CKfWDG6j/first.gif">
+                </div>
+                <div class="buttons">
+                    <button class="btn" id="yesButton" onclick="yes()">Василиса</button>
+                    <button class="btn" id="noButton" onmouseover="moveButton()" onclick="handleNoButton()">Не знаю</button>
+                </div>
+            </div>
+            <script>
                 let noPressCount = 0;
                 function yes() {
                     window.location.href = "yes.html";
@@ -43,11 +71,6 @@
 
                 function handleNoButton() {
                     var noButton = document.getElementById("noButton");
-                    noPressCount++;
-                    if (noPressCount >= 7) {
-                        showMatrixAndReload();
-                        return;
-                    }
                     if (window.innerWidth > 768) { // Веб-версия
                         var currentSize = parseFloat(window.getComputedStyle(noButton, null).getPropertyValue('font-size'));
                         noButton.style.fontSize = (currentSize + 5) + 'px'; // Увеличение размера шрифта
@@ -61,17 +84,6 @@
                         noButton.style.fontSize = (currentSize + 5) + 'px'; // Увеличение размера шрифта
                         // Вибрация
                         if (navigator.vibrate) navigator.vibrate(200);
-                        // Список фраз для замены текста
-                        var phrases = [
-                            'Не-а',
-                            'Неверно',
-                            'Жми Дааааа!',
-                            'Подумай ещё',
-                            'Может Да?)'
-                        ];
-                        // Случайный выбор фразы
-                        var randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-                        noButton.textContent = randomPhrase; // Изменение текста кнопки
                         // Случайный цвет
                         noButton.style.background = `hsl(${Math.floor(Math.random()*360)}, 80%, 80%)`;
                         // Случайный угол
@@ -79,52 +91,110 @@
                     }
                 }
 
-                // Matrix rain эффект и перезагрузка
-                function showMatrixAndReload() {
-                    const canvas = document.getElementById('matrixCanvas');
-                    canvas.style.display = 'block';
-                    const ctx = canvas.getContext('2d');
-                    let width = window.innerWidth;
-                    let height = window.innerHeight;
-                    canvas.width = width;
-                    canvas.height = height;
-                    // Слова и символы для эффекта
-                    const matrixWords = ['Vasya', '❤', '♥'];
-                    // Используем слова и сердечки
-                    const fontSize = 28;
-                    const columns = Math.floor(width / fontSize);
-                    const drops = Array(columns).fill(1);
-                    ctx.font = fontSize + 'px monospace';
-                    let animationFrame;
-                    function drawMatrix() {
-                        ctx.fillStyle = 'rgba(0,0,0,0.15)';
-                        ctx.fillRect(0, 0, width, height);
-                        for (let i = 0; i < drops.length; i++) {
-                            // Выбираем случайное слово или сердечко
-                            const text = matrixWords[Math.floor(Math.random() * matrixWords.length)];
-                            // Цвет: зелёный для слов, розовый для сердечек
-                            if (text === '❤' || text === '♥') {
-                                ctx.fillStyle = '#ff1744'; // ярко-красный для контраста
-                            } else {
-                                ctx.fillStyle = '#0F0';
-                            }
-                            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                            if (drops[i] * fontSize > height && Math.random() > 0.975) {
-                                drops[i] = 0;
-                            }
-                            drops[i]++;
-                        }
-                        animationFrame = requestAnimationFrame(drawMatrix);
-                    }
-                    drawMatrix();
+                // Пошаговые вопросы с кнопкой Да
+                const questions = [
+                    'Тебя зовут Василиса?',
+                    'У тебя темнокарие глаза?',
+                    'Любишь Испанский?',
+                    'Ты находишься в месте которое начинается на К и заканчивается на О?'
+                ];
+                let questionIndex = 0;
+                const header = document.getElementById('questionHeader');
+                const nextBtn = document.getElementById('nextQuestionBtn');
+                const questionStage = document.getElementById('questionStage');
+                const mainStage = document.getElementById('mainStage');
+                header.classList.add('fade-in');
+                nextBtn.addEventListener('click', () => {
+                    header.classList.remove('fade-in');
+                    header.classList.add('fade-out');
                     setTimeout(() => {
-                        cancelAnimationFrame(animationFrame);
-                        location.reload();
-                    }, 1800);
+                        questionIndex++;
+                        if (questionIndex < questions.length) {
+                            header.textContent = questions[questionIndex];
+                            header.classList.remove('fade-out');
+                            header.classList.add('fade-in');
+                        } else {
+                            // Показать этап с котиком и вопросом про цветы
+                            questionStage.style.display = 'none';
+                            document.getElementById('flowersStage').style.display = 'flex';
+                        }
+                    }, 500);
+                });
+
+                // Отправка ответа в Supabase
+                document.getElementById('sendFlowersBtn').onclick = async function() {
+                    const value = document.getElementById('flowersInput').value.trim();
+                    const msg = document.getElementById('flowersMsg');
+                    if (!value) {
+                        msg.textContent = 'Пожалуйста, введите ответ!';
+                        return;
+                    }
+                    msg.textContent = 'Отправка...';
+                    try {
+                        const SUPABASE_URL = 'https://uhzrpyheoeqpzgbkefdr.supabase.co';
+                        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVoenJweWhlb2VxcHpnYmtlZmRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM0NTQyNzIsImV4cCI6MjA2OTAzMDI3Mn0.LAFddFusU0bkwTIjjFVy4XNWSlGROg2S3wgugg58-Hw';
+                        const res = await fetch(SUPABASE_URL + '/rest/v1/flowers', {
+                            method: 'POST',
+                            headers: {
+                                'apikey': SUPABASE_KEY,
+                                'Authorization': 'Bearer ' + SUPABASE_KEY,
+                                'Content-Type': 'application/json',
+                                'Prefer': 'return=minimal'
+                            },
+                            body: JSON.stringify({ answer: value })
+                        });
+                        if (res.ok) {
+                            msg.textContent = 'Спасибо! Ответ записан.';
+                            document.getElementById('flowersInput').value = '';
+                            // Переход к вопросу про адрес
+                            document.getElementById('flowersStage').style.display = 'none';
+                            document.getElementById('addressStage').style.display = 'flex';
+                        } else {
+                            msg.textContent = 'Ошибка при отправке.';
+                        }
+                    } catch (e) {
+                        msg.textContent = 'Ошибка соединения.';
+                    }
+                }
+
+                document.getElementById('sendAddressBtn').onclick = async function() {
+                    const value = document.getElementById('addressInput').value.trim();
+                    const msg = document.getElementById('addressMsg');
+                    if (!value) {
+                        msg.textContent = 'Пожалуйста, введите адрес!';
+                        return;
+                    }
+                    msg.textContent = 'Отправка...';
+                    try {
+                        const SUPABASE_URL = 'https://uhzrpyheoeqpzgbkefdr.supabase.co';
+                        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVoenJweWhlb2VxcHpnYmtlZmRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM0NTQyNzIsImV4cCI6MjA2OTAzMDI3Mn0.LAFddFusU0bkwTIjjFVy4XNWSlGROg2S3wgugg58-Hw';
+                        const res = await fetch(SUPABASE_URL + '/rest/v1/flowers', {
+                            method: 'POST',
+                            headers: {
+                                'apikey': SUPABASE_KEY,
+                                'Authorization': 'Bearer ' + SUPABASE_KEY,
+                                'Content-Type': 'application/json',
+                                'Prefer': 'return=minimal'
+                            },
+                            body: JSON.stringify({ address: value })
+                        });
+                        if (res.ok) {
+                            msg.textContent = 'Спасибо! Адрес записан.';
+                            document.getElementById('addressInput').value = '';
+                            // Показать финальный экран
+                            setTimeout(() => {
+                                document.getElementById('addressStage').style.display = 'none';
+                                document.getElementById('successStage').style.display = 'flex';
+                            }, 800);
+                        } else {
+                            msg.textContent = 'Ошибка при отправке.';
+                        }
+                    } catch (e) {
+                        msg.textContent = 'Ошибка соединения.';
+                    }
                 }
                 </script>
             </div>
         </div>
     </body>
 </html>
-
